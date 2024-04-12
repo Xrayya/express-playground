@@ -1,13 +1,18 @@
-import express, { Request, Response } from "express";
-import dotenv from "dotenv";
-
-dotenv.config();
+import express from "express";
+import cors from "cors";
+import personalNoteRouter from "./routes/personal-notes/routes";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("/", (_req: Request, res: Response) => {
-  res.send("Express + Typescript Server's Up");
+app.use(cors())
+
+app.get("/", (_req, res) => {
+  res.json({ message: "ok" });
 });
 
-app.listen(port, () => console.log(`[server]: Server is running at http://localhost:${port}`));
+app.use("/personal-notes", personalNoteRouter);
+
+app.listen(port, () => {
+  console.log(`[server] Example app listening at http://localhost:${port}`);
+});
