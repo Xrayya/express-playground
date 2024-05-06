@@ -1,18 +1,16 @@
 import express from "express";
 import cors from "cors";
-import personalNoteRouter from "./routes/personal-notes/routes";
 
-const app = express();
+const Express = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors())
+Express.use(cors());
+Express.use(express.json());
 
-app.get("/", (_req, res) => {
-  res.json({ message: "ok" });
+Express.get("/", (_req, res) => {
+  res.json({ message: "ok" }).status(200);
 });
 
-app.use("/personal-notes", personalNoteRouter);
-
-app.listen(port, () => {
-  console.log(`[server] Example app listening at http://localhost:${port}`);
+Express.listen(port, () => {
+  console.log(`[Express] listening at http://localhost:${port}`);
 });
