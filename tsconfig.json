@@ -1,12 +1,20 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "target": "ESNext",
     "module": "ESNext",
     "moduleDetection": "force",
-    "jsx": "react-jsx",
     "outDir": "./dist",
-    /* Bundler mode */
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@/personalNotes": [
+        "src/projects/personalNotes/*"
+      ]
+    },
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "noEmit": true,
@@ -16,5 +24,8 @@
     "noUnusedLocals": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "include": [
+    "src"
+  ]
 }
