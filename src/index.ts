@@ -1,16 +1,18 @@
-import express from "express";
 import cors from "cors";
+import express from "express";
 
-const Express = express();
+const personalNotesApp = express();
 const port = process.env.PORT || 3000;
 
-Express.use(cors());
-Express.use(express.json());
+personalNotesApp.use(cors());
+personalNotesApp.use(express.json());
 
-Express.get("/", (_req, res) => {
+personalNotesApp.get("/", (_req, res) => {
   res.json({ message: "ok" }).status(200);
 });
 
-Express.listen(port, () => {
+personalNotesApp.use()
+
+personalNotesApp.listen(port, () => {
   console.log(`[Express] listening at http://localhost:${port}`);
 });

@@ -1,4 +1,4 @@
-import { Note } from "../models/Note.model";
+import { Note } from "../models/note.model";
 
 export const getInitialData = (): Note[] => [
   {
