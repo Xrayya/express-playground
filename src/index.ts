@@ -1,18 +1,25 @@
 import cors from "cors";
 import express from "express";
+import loggingMiddleware from "./middlewares/logging.middleware";
 
-const personalNotesApp = express();
+const playground = express();
 const port = process.env.PORT || 3000;
 
-personalNotesApp.use(cors());
-personalNotesApp.use(express.json());
+playground.use(cors());
+playground.use(express.json());
+playground.use(loggingMiddleware);
 
-personalNotesApp.get("/", (_req, res) => {
-  res.json({ message: "ok" }).status(200);
+playground.get("/", (_req, res) => {
+  res
+    .json({
+      status: "ok",
+      message: "You're entering root route of Express Playground",
+    })
+    .status(200);
 });
 
-personalNotesApp.use()
+playground.use();
 
-personalNotesApp.listen(port, () => {
+playground.listen(port, () => {
   console.log(`[Express] listening at http://localhost:${port}`);
 });
