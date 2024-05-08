@@ -74,7 +74,10 @@ export const deleteNoteById = (id: Note["id"]) => {
   return notes.splice(index, 1)[0].id === id;
 };
 
-export const changeNoteById = (id: Note["id"], newData: Omit<Note, "id">) => {
+export const changeNoteById = (
+  id: Note["id"],
+  data: Omit<Note, "id" | "createdAt" | "updatedAt">,
+) => {
   const index = notes.findIndex((note) => note.id === id);
 
   if (index === -1) {
@@ -83,7 +86,7 @@ export const changeNoteById = (id: Note["id"], newData: Omit<Note, "id">) => {
 
   notes[index] = {
     ...notes[index],
-    ...newData,
+    ...data,
   };
 
   return true;
