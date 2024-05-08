@@ -1,5 +1,6 @@
 {
-  "execMap": {
-    "ts": "bunx tsx"
-  }
+  "watch": ["src"],
+  "ext": ".ts",
+  "ignore": [],
+  "exec": "bun ./src/index.ts"
 }
