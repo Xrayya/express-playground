@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import loggingMiddleware from "./middlewares/logging.middleware";
+import notesRouter from "./projects/personalNotes/routes/notes.route";
 
 const playground = express();
 const port = process.env.PORT || 3000;
@@ -18,7 +19,7 @@ playground.get("/", (_req, res) => {
     .status(200);
 });
 
-playground.use();
+playground.use("/personal-notes", notesRouter);
 
 playground.listen(port, () => {
   console.log(`[Express] listening at http://localhost:${port}`);
