@@ -57,7 +57,7 @@ export const changeNoteById = (id: Note["id"], newData: Omit<Note, "id">) => {
   notes[index] = {
     ...notes[index],
     ...newData,
-  }
+  };
 
-  return true
-}
+  return true;
+};
