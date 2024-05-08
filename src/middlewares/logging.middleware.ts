@@ -7,7 +7,7 @@ const loggingMiddleware = (
 ) => {
   const timestamp = new Date(Date.now()).toString();
   console.log(
-    `[Personal Notes] ${timestamp}: Handling ${req.method} ${req.hostname} ${req.path}`,
+    `[Express] ${timestamp}: Handling ${req.method} ${req.hostname} ${req.path}`,
   );
   next();
 };
