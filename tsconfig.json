@@ -9,10 +9,10 @@
     "outDir": "./dist",
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "@/personalNotes": [
-        "src/projects/personalNotes/*"
+        "./src/projects/personalNotes/*"
       ]
     },
     "moduleResolution": "bundler",
