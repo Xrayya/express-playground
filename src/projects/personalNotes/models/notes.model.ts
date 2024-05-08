@@ -31,12 +31,23 @@ export const getNotesById = (id: Note["id"]) => {
   return notes.filter((note) => note.id === id);
 };
 
-export const getNotesByContent = (content: string) => {
-  return notes.filter(
-    (note) =>
-      filterByPattern(content, note.title, 0.05) ||
-      filterByPattern(content, note.body || "", 0.05),
-  );
+export const getNotesByContent = (archived: boolean, content: string) => {
+  return notes
+    .filter(
+      (note) =>
+        note.archived === archived &&
+        (filterByPattern(content, note.title, 0.05) ||
+          filterByPattern(content, note.body || "", 0.05)),
+    )
+    .map(({ id, title, body = "", createdAt, updatedAt }) => {
+      return {
+        id,
+        title,
+        body,
+        createdAt,
+        updatedAt,
+      };
+    });
 };
 
 export const addNotes = (
