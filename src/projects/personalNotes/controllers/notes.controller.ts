@@ -27,7 +27,7 @@ export const getById = async (req: GetByIdRequest, res: Response) => {
   const note = notesModel.getNotesById(id);
 
   if (!note) {
-    return res.status(404).json({ message: "Note not found" });
+    return res.status(404).json({ error: "Note not found" });
   }
 
   return res.status(200).json(note);
@@ -41,12 +41,10 @@ export const post = async (req: PostRequest, res: Response) => {
   const noteId = notesModel.addNotes({ title, body, archived });
 
   if (!noteId) {
-    return res.status(500).json({ message: "Server failed to save note" });
+    return res.status(500).json({ error: "Server failed to save note" });
   }
 
-  return res
-    .status(201)
-    .json({ message: "Note added successfully", data: { noteId } });
+  return res.status(201).json({ noteId: noteId });
 };
 
 type DeleteRequest = TypedRequest<typeof schema.removeReq.params, any, any>;
@@ -55,10 +53,10 @@ export const remove = async (req: DeleteRequest, res: Response) => {
   const { id } = req.params;
 
   if (notesModel.deleteNoteById(id)) {
-    return res.status(200).json({ message: "Note deleted successfully" });
+    return res.status(204);
   }
 
-  return res.status(404).json({ message: "Note not found" });
+  return res.status(404).json({ error: "Note not found" });
 };
 
 type ChangeRequest = TypedRequest<
@@ -71,8 +69,8 @@ export const change = async (req: ChangeRequest, res: Response) => {
   const { title, body = "", archived } = req.body;
 
   if (notesModel.changeNoteById(id, { title, body, archived })) {
-    return res.status(200).json({ message: "Note changed successfully" });
+    return res.status(204);
   }
 
-  return res.status(404).json({ message: "Note not found" });
+  return res.status(404).json({ error: "Note not found" });
 };
