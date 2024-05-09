@@ -60,14 +60,18 @@ export const addNotes = (
   note: Omit<Note, "id" | "createdAt" | "updatedAt">,
 ) => {
   const length = notes.length;
+  const id = nanoid(16);
   const timestamp = new Date();
   const newNote: Note = {
-    id: nanoid(16),
+    id,
     createdAt: timestamp,
     updatedAt: timestamp,
     ...note,
   };
-  return notes.push(newNote) === length + 1;
+
+  if (notes.push(newNote) === length + 1) {
+    return id;
+  }
 };
 
 export const deleteNoteById = (id: Note["id"]) => {

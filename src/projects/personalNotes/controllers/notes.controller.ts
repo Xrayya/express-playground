@@ -38,11 +38,15 @@ type PostRequest = TypedRequest<any, typeof schema.postReq.body, any>;
 export const post = async (req: PostRequest, res: Response) => {
   const { title, body, archived = false } = req.body;
 
-  if (notesModel.addNotes({ title, body, archived })) {
-    return res.status(201).json({ message: "Note added successfully" });
+  const noteId = notesModel.addNotes({ title, body, archived });
+
+  if (noteId === undefined) {
+    return res.status(500).json({ message: "Server failed to save note" });
   }
 
-  return res.status(500).json({ message: "Server failed to save note" });
+  return res
+    .status(201)
+    .json({ message: "Note added successfully", data: { noteId } });
 };
 
 type DeleteRequest = TypedRequest<typeof schema.removeReq.params, any, any>;
