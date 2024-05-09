@@ -5,22 +5,22 @@ type GetRequest = Request<any, any, any, { content?: string }>;
 
 export const get =
   (archived: boolean = false) =>
-  async (req: GetRequest, res: Response) => {
-    const { content } = req.query;
+    async (req: GetRequest, res: Response) => {
+      const { content } = req.query;
 
-    if (content !== undefined) {
+      if (content !== undefined) {
+        return res
+          .json({
+            status: "success",
+            data: notesModel.getNotesByContent(archived, content),
+          })
+          .status(200);
+      }
+
       return res
-        .json({
-          status: "success",
-          data: notesModel.getNotesByContent(archived, content),
-        })
+        .json({ status: "success", data: notesModel.getAllNotes(archived) })
         .status(200);
-    }
-
-    return res
-      .json({ status: "success", data: notesModel.getAllNotes(archived) })
-      .status(200);
-  };
+    };
 
 type GetByIdRequest = Request<{ id: string }>;
 
@@ -36,7 +36,11 @@ export const getById = async (req: GetByIdRequest, res: Response) => {
   return res.json({ status: "success", data: note[0] });
 };
 
-type PostRequest = Request<any, any, Omit<notesModel.Note, "id" | "createdAt">>;
+type PostRequest = Request<
+  any,
+  any,
+  Omit<notesModel.Note, "id" | "createdAt" | "updatedAt">
+>;
 
 export const post = async (req: PostRequest, res: Response) => {
   const { title, body, archived = false } = req.body;
