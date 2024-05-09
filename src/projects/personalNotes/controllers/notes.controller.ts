@@ -10,7 +10,7 @@ export const get =
   async (req: GetRequest, res: Response) => {
     const { content } = req.query;
 
-    if (content !== undefined) {
+    if (content) {
       return res
         .status(200)
         .json(notesModel.getNotesByContent(archived, content));
@@ -26,11 +26,11 @@ export const getById = async (req: GetByIdRequest, res: Response) => {
 
   const note = notesModel.getNotesById(id);
 
-  if (note.length === 0) {
+  if (!note) {
     return res.status(404).json({ message: "Note not found" });
   }
 
-  return res.status(200).json(note[0]);
+  return res.status(200).json(note);
 };
 
 type PostRequest = TypedRequest<any, typeof schema.postReq.body, any>;
@@ -40,7 +40,7 @@ export const post = async (req: PostRequest, res: Response) => {
 
   const noteId = notesModel.addNotes({ title, body, archived });
 
-  if (noteId === undefined) {
+  if (!noteId) {
     return res.status(500).json({ message: "Server failed to save note" });
   }
 

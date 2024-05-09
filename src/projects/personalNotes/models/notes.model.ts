@@ -13,9 +13,9 @@ export interface Note {
   updatedAt: Date;
 }
 
-const notes = getInitialData();
+const notes: Note[] = getInitialData();
 
-export const getAllNotes = (archived: boolean) => {
+export const getAllNotes = (archived: boolean): Omit<Note, "archived">[] => {
   return notes
     .filter(({ archived: isArchived }) => isArchived === archived)
     .map(({ id, title, body: noteBody = "", createdAt, updatedAt }) => {
@@ -31,11 +31,14 @@ export const getAllNotes = (archived: boolean) => {
     });
 };
 
-export const getNotesById = (id: Note["id"]) => {
-  return notes.filter((note) => note.id === id);
+export const getNotesById = (id: Note["id"]): Note => {
+  return notes.filter((note) => note.id === id)[0];
 };
 
-export const getNotesByContent = (archived: boolean, content: string) => {
+export const getNotesByContent = (
+  archived: boolean,
+  content: string,
+): Omit<Note, "archived">[] => {
   return notes
     .filter(
       (note) =>
@@ -58,7 +61,7 @@ export const getNotesByContent = (archived: boolean, content: string) => {
 
 export const addNotes = (
   note: Omit<Note, "id" | "createdAt" | "updatedAt">,
-) => {
+): string | undefined => {
   const length = notes.length;
   const id = nanoid(16);
   const timestamp = new Date();
@@ -74,7 +77,7 @@ export const addNotes = (
   }
 };
 
-export const deleteNoteById = (id: Note["id"]) => {
+export const deleteNoteById = (id: Note["id"]): boolean => {
   const index = notes.findIndex((note) => note.id === id);
 
   if (index === -1) {
@@ -87,7 +90,7 @@ export const deleteNoteById = (id: Note["id"]) => {
 export const changeNoteById = (
   id: Note["id"],
   data: Omit<Note, "id" | "createdAt" | "updatedAt">,
-) => {
+): boolean => {
   const index = notes.findIndex((note) => note.id === id);
 
   if (index === -1) {
