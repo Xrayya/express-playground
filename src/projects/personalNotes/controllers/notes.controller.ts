@@ -1,28 +1,30 @@
-import { Request, Response } from "express";
+import { Response } from "express";
+import { TypedRequest } from "zod-express-middleware";
 import * as notesModel from "../models/notes.model";
+import * as schema from "../schema";
 
-type GetRequest = Request<any, any, any, { content?: string }>;
+type GetRequest = TypedRequest<any, any, typeof schema.getReq.query>;
 
 export const get =
   (archived: boolean = false) =>
-    async (req: GetRequest, res: Response) => {
-      const { content } = req.query;
+  async (req: GetRequest, res: Response) => {
+    const { content } = req.query;
 
-      if (content !== undefined) {
-        return res
-          .json({
-            status: "success",
-            data: notesModel.getNotesByContent(archived, content),
-          })
-          .status(200);
-      }
-
+    if (content !== undefined) {
       return res
-        .json({ status: "success", data: notesModel.getAllNotes(archived) })
+        .json({
+          status: "success",
+          data: notesModel.getNotesByContent(archived, content),
+        })
         .status(200);
-    };
+    }
 
-type GetByIdRequest = Request<{ id: string }>;
+    return res
+      .json({ status: "success", data: notesModel.getAllNotes(archived) })
+      .status(200);
+  };
+
+type GetByIdRequest = TypedRequest<typeof schema.getByIdReq.params, any, any>;
 
 export const getById = async (req: GetByIdRequest, res: Response) => {
   const { id } = req.params;
@@ -36,22 +38,10 @@ export const getById = async (req: GetByIdRequest, res: Response) => {
   return res.json({ status: "success", data: note[0] });
 };
 
-type PostRequest = Request<
-  any,
-  any,
-  Omit<notesModel.Note, "id" | "createdAt" | "updatedAt">
->;
+type PostRequest = TypedRequest<any, typeof schema.postReq.body, any>;
 
 export const post = async (req: PostRequest, res: Response) => {
   const { title, body, archived = false } = req.body;
-  if (title !== undefined) {
-    return res
-      .json({
-        status: "fail",
-        message: "Failed to add new note. The note must have title",
-      })
-      .status(400);
-  }
 
   if (notesModel.addNotes({ title, body, archived })) {
     return res
@@ -64,7 +54,7 @@ export const post = async (req: PostRequest, res: Response) => {
     .status(500);
 };
 
-type DeleteRequest = Request<{ id: string }>;
+type DeleteRequest = TypedRequest<typeof schema.removeReq.params, any, any>;
 
 export const remove = async (req: DeleteRequest, res: Response) => {
   const { id } = req.params;
@@ -78,12 +68,11 @@ export const remove = async (req: DeleteRequest, res: Response) => {
   return res.json({ status: "fail", message: "Note not found" }).status(404);
 };
 
-type ChangeRequest = Request<
-  { id: string },
-  any,
-  Omit<notesModel.Note, "id" | "createdAt" | "updatedAt">
+type ChangeRequest = TypedRequest<
+  typeof schema.changeReq.params,
+  typeof schema.changeReq.body,
+  any
 >;
-
 export const change = async (req: ChangeRequest, res: Response) => {
   const { id } = req.params;
   const { title, body = "", archived } = req.body;

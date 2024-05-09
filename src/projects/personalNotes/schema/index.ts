@@ -1,24 +1,18 @@
 import { z } from "zod";
-import { RequestValidation } from "zod-express-middleware";
-import { Note } from "../models/notes.model";
 
-export const getReq: RequestValidation<any, any, { content?: string }> = {
+export const getReq = {
   query: z.object({
     content: z.string().optional(),
   }),
 };
 
-export const getByIdReq: RequestValidation<{ id: string }, any, any> = {
+export const getByIdReq = {
   params: z.object({
     id: z.string(),
   }),
 };
 
-export const postReq: RequestValidation<
-  any,
-  any,
-  Omit<Note, "id" | "createdAt" | "updatedAt">
-> = {
+export const postReq = {
   body: z.object({
     title: z.string(),
     body: z.string().optional(),
@@ -28,11 +22,7 @@ export const postReq: RequestValidation<
 
 export const removeReq = getByIdReq;
 
-export const changeReq: RequestValidation<
-  { id: string },
-  any,
-  Omit<Note, "id" | "createdAt" | "updatedAt">
-> = {
+export const changeReq = {
   params: z.object({
     id: z.string(),
   }),
