@@ -2,6 +2,8 @@ import { nanoid } from "nanoid";
 import { getInitialData } from "../fixtures/notesDummy";
 import { filterByPattern } from "../utils/fuzzyMatch";
 
+const maxWord = 10;
+
 export interface Note {
   id: string;
   title: string;
@@ -16,7 +18,9 @@ const notes = getInitialData();
 export const getAllNotes = (archived: boolean) => {
   return notes
     .filter(({ archived: isArchived }) => isArchived === archived)
-    .map(({ id, title, body = "", createdAt, updatedAt }) => {
+    .map(({ id, title, body: noteBody = "", createdAt, updatedAt }) => {
+      const words: string[] = noteBody.split(" ");
+      const body = `${words.slice(0, maxWord).join(" ")}${words.length > maxWord ? "..." : ""}`;
       return {
         id,
         title,
@@ -39,7 +43,9 @@ export const getNotesByContent = (archived: boolean, content: string) => {
         (filterByPattern(content, note.title, 0.05) ||
           filterByPattern(content, note.body || "", 0.05)),
     )
-    .map(({ id, title, body = "", createdAt, updatedAt }) => {
+    .map(({ id, title, body: noteBody = "", createdAt, updatedAt }) => {
+      const words: string[] = noteBody.split(" ");
+      const body = `${words.slice(0, maxWord).join(" ")}${words.length > maxWord ? "..." : ""}`;
       return {
         id,
         title,
