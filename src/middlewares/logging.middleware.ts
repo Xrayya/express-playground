@@ -4,7 +4,10 @@ const loggingMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const { hostname, method, path } = req;
 
   const timestamp = new Date(Date.now()).toISOString();
-  console.log(` [Express] [${timestamp}] <-- ${hostname} ${method} ${path}`);
+  console.log(
+    "\x1b[37m",
+    `[Express] [${timestamp}] <-- ${hostname} ${method} ${path}`,
+  );
 
   res.on("finish", () => {
     const timestamp = new Date(Date.now()).toISOString();
