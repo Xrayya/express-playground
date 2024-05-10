@@ -22,5 +22,5 @@ playground.get("/", (_req, res) => {
 playground.use("/personal-notes", notesRouter);
 
 playground.listen(port, () => {
-  console.log(`[Express] listening at http://localhost:${port}`);
+  console.log("\x1b[34m", `[Express] listening at http://localhost:${port}`);
 });
