@@ -169,10 +169,17 @@ dist
 .pnp.*
 
 # IntelliJ based IDEs
+
 .idea
 
 # Finder (MacOS) folder config
+
 .DS_Store
 
-# bun file
+# Bun file
+
 bun.lockb
+
+# General output folder
+
+dist/

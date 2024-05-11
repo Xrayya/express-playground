@@ -1,31 +1,20 @@
 {
   "compilerOptions": {
-    "lib": [
-      "ESNext"
-    ],
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleDetection": "force",
-    "outDir": "./dist",
+    "target": "ES2015",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "outDir": "dist",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/personalNotes": [
-        "./src/projects/personalNotes/*"
-      ]
+      "@/*": ["./src/*"]
     },
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    /* Linting */
-    "skipLibCheck": true,
+    "moduleResolution": "node",
     "strict": true,
     "noUnusedLocals": true,
-    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["./src/**/*"]
 }

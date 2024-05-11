@@ -1,27 +1,41 @@
 {
   "name": "express-playground",
-  "module": "src/index.ts",
-  "type": "module",
+  "version": "1.0.0",
+  "description": "This is a playground for experimenting with express.js.",
   "scripts": {
-    "start": "bun src/index.ts",
+    "start": "node dist/index.js",
     "dev": "bun run --watch src/index.ts",
-    "build": "bun-vercel ./src/index.ts"
+    "build": "bunx tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xrayya/express-playground.git"
+  },
+  "keywords": [
+    "back-end",
+    "experiment",
+    "Express.js"
+  ],
+  "author": "Xrayya (nur.alkhiyar@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Xrayya/express-playground/issues"
+  },
+  "homepage": "https://github.com/Xrayya/express-playground#readme",
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
     "@types/express": "^4.17.21",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.1",
+    "dotenv": "^16.4.5",
     "express": "^4.18.2",
-    "nanoid": "^5.0.7",
+    "nanoid": "3.x.x",
     "zod": "^3.23.7",
     "zod-express-middleware": "^1.4.0"
   },
   "devDependencies": {
-    "@types/bun": "latest",
     "@types/cors": "^2.8.17",
-    "bun-vercel": "^1.0.0-alpha.5"
+    "@types/node": "^20.12.11"
   }
 }

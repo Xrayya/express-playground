@@ -2,6 +2,9 @@ import cors from "cors";
 import express from "express";
 import loggingMiddleware from "./middlewares/logging.middleware";
 import notesRouter from "./projects/personalNotes/routes/notes.route";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const playground = express();
 const port = process.env.PORT || 3000;
