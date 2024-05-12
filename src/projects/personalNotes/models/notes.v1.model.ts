@@ -27,7 +27,10 @@ class NoteModelV1 implements INoteModel {
     return this.notes.filter((note) => note.id === id)[0];
   };
 
-  getNotesByContent: INoteModel["getNotesByContent"] = async (archived, content) => {
+  getNotesByContent: INoteModel["getNotesByContent"] = async (
+    archived,
+    content,
+  ) => {
     return this.notes
       .filter(
         (note) =>
@@ -74,10 +77,7 @@ class NoteModelV1 implements INoteModel {
     return this.notes.splice(index, 1)[0].id === id;
   };
 
-  changeNoteById: INoteModel["changeNoteById"] = async (
-    id: Note["id"],
-    data: Omit<Note, "id" | "createdAt" | "updatedAt">,
-  ) => {
+  changeNoteById: INoteModel["changeNoteById"] = async (id, data) => {
     const index = this.notes.findIndex((note) => note.id === id);
 
     if (index === -1) {
