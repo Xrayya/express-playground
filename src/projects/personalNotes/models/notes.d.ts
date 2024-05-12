@@ -8,18 +8,18 @@ export type Note = {
 };
 
 export interface INoteModel {
-  getAllNotes: (archived: boolean) => Omit<Note, "archived">[];
-  getNotesById: (id: Note["id"]) => Note;
+  getAllNotes: (archived: boolean) => Promise<Omit<Note, "archived">[]>;
+  getNotesById: (id: Note["id"]) => Promise<Note>;
   getNotesByContent: (
     archived: boolean,
     content: string,
-  ) => Omit<Note, "archived">[];
+  ) => Promise<Omit<Note, "archived">[]>;
   addNote: (
     note: Omit<Note, "id" | "createdAt" | "updatedAt">,
-  ) => string | undefined;
-  deleteNoteById: (id: Note["id"]) => boolean;
+  ) => Promise<string | undefined>;
+  deleteNoteById: (id: Note["id"]) => Promise<boolean>;
   changeNoteById: (
     id: Note["id"],
     data: Omit<Note, "id" | "createdAt" | "updatedAt">,
-  ) => boolean;
+  ) => Promise<boolean>;
 }

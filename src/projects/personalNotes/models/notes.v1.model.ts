@@ -7,7 +7,7 @@ const maxWord = 10;
 
 class NoteModelV1 implements INoteModel {
   notes: Note[] = getInitialData();
-  getAllNotes: INoteModel["getAllNotes"] = (archived) => {
+  getAllNotes: INoteModel["getAllNotes"] = async (archived) => {
     return this.notes
       .filter(({ archived: isArchived }) => isArchived === archived)
       .map(({ id, title, body: noteBody = "", createdAt, updatedAt }) => {
@@ -23,11 +23,11 @@ class NoteModelV1 implements INoteModel {
       });
   };
 
-  getNotesById: INoteModel["getNotesById"] = (id) => {
+  getNotesById: INoteModel["getNotesById"] = async (id) => {
     return this.notes.filter((note) => note.id === id)[0];
   };
 
-  getNotesByContent: INoteModel["getNotesByContent"] = (archived, content) => {
+  getNotesByContent: INoteModel["getNotesByContent"] = async (archived, content) => {
     return this.notes
       .filter(
         (note) =>
@@ -48,7 +48,7 @@ class NoteModelV1 implements INoteModel {
       });
   };
 
-  addNote: INoteModel["addNote"] = (note) => {
+  addNote: INoteModel["addNote"] = async (note) => {
     const length = this.notes.length;
     const id = nanoid(16);
     const timestamp = new Date();
@@ -64,7 +64,7 @@ class NoteModelV1 implements INoteModel {
     }
   };
 
-  deleteNoteById: INoteModel["deleteNoteById"] = (id) => {
+  deleteNoteById: INoteModel["deleteNoteById"] = async (id) => {
     const index = this.notes.findIndex((note) => note.id === id);
 
     if (index === -1) {
@@ -74,10 +74,10 @@ class NoteModelV1 implements INoteModel {
     return this.notes.splice(index, 1)[0].id === id;
   };
 
-  changeNoteById = (
+  changeNoteById: INoteModel["changeNoteById"] = async (
     id: Note["id"],
     data: Omit<Note, "id" | "createdAt" | "updatedAt">,
-  ): boolean => {
+  ) => {
     const index = this.notes.findIndex((note) => note.id === id);
 
     if (index === -1) {

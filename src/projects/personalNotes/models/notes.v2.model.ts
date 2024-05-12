@@ -1,11 +1,12 @@
 import { INoteModel, Note } from "./notes";
 
 class NoteModelV2 implements INoteModel {
-  getAllNotes: INoteModel["getAllNotes"] = (archived) => {
+  getAllNotes: INoteModel["getAllNotes"] = async (archived) => {
+    
     return [];
   };
 
-  getNotesById: INoteModel["getNotesById"] = (id) => {
+  getNotesById: INoteModel["getNotesById"] = async (id) => {
     return {
       id: "",
       title: "",
@@ -16,19 +17,19 @@ class NoteModelV2 implements INoteModel {
     };
   };
 
-  getNotesByContent: INoteModel["getNotesByContent"] = (archived, content) => {
+  getNotesByContent: INoteModel["getNotesByContent"] = async (archived, content) => {
     return [];
   };
 
-  addNote: INoteModel["addNote"] = (note) => {
+  addNote: INoteModel["addNote"] = async (note) => {
     return "";
   };
 
-  deleteNoteById: INoteModel["deleteNoteById"] = (id) => {
+  deleteNoteById: INoteModel["deleteNoteById"] = async (id) => {
     return false;
   };
 
-  changeNoteById: INoteModel["changeNoteById"] = (id, data) => {
+  changeNoteById: INoteModel["changeNoteById"] = async (id, data) => {
     return false;
   };
 }
