@@ -1,4 +1,4 @@
-import { Note } from "../models/notes.model";
+import { Note } from "../models/notes";
 
 export const getInitialData = (): Note[] => [
   {
@@ -15,7 +15,7 @@ export const getInitialData = (): Note[] => [
     body: "Functional component merupakan React component yang dibuat menggunakan fungsi JavaScript. Agar fungsi JavaScript dapat disebut component ia harus mengembalikan React element dan dipanggil layaknya React component.",
     createdAt: new Date("2022-04-14T04:27:34.572Z"),
     updatedAt: new Date("2022-04-14T04:27:34.572Z"),
-    archived: false,
+    archived: true,
   },
   {
     id: 'n_10rBqDWAJX2XAr',
@@ -23,7 +23,7 @@ export const getInitialData = (): Note[] => [
     body: "Dalam konteks pemrograman JavaScript, modularization merupakan teknik dalam memecah atau menggunakan kode dalam berkas JavaScript secara terpisah berdasarkan tanggung jawabnya masing-masing.",
     createdAt: new Date("2022-04-14T04:27:34.572Z"),
     updatedAt: new Date("2022-04-14T04:27:34.572Z"),
-    archived: false,
+    archived: true,
   },
   {
     id: '6qFNai7xiJ0HRup9',
@@ -47,6 +47,6 @@ export const getInitialData = (): Note[] => [
     body: "Dalam konteks pemrograman JavaScript, module bundler merupakan tools yang digunakan untuk menggabungkan seluruh modul JavaScript yang digunakan oleh aplikasi menjadi satu berkas.",
     createdAt: new Date("2022-04-14T04:27:34.572Z"),
     updatedAt: new Date("2022-04-14T04:27:34.572Z"),
-    archived: false,
+    archived: true,
   },
 ];
