@@ -29,6 +29,9 @@ This project was developed as one of my project developments, [personal notes us
 
 - [ ] Use ORM like [drizzle](https://orm.drizzle.team/) for easy database integration
 - [ ] Use database
+- [ ] Use GCP Cloud SQL
+- [ ] Use Firestore
+- [ ] Try to deploy using Bun runtime
 
 ### Potential Improvement
 
