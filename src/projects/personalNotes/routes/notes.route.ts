@@ -1,7 +1,7 @@
 import express from "express";
 import * as notesController from "../controllers/notes.controller";
 import { validateRequest } from "zod-express-middleware";
-import * as schema from "../schema";
+import * as schema from "../schema/request";
 
 const notesRouter = express.Router();
 
