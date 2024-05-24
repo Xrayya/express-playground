@@ -17,9 +17,9 @@ export interface INoteModel {
   addNote: (
     note: Omit<Note, "id" | "createdAt" | "updatedAt">,
   ) => Promise<string | undefined>;
-  deleteNoteById: (id: Note["id"]) => Promise<boolean>;
+  deleteNoteById: (id: Note["id"]) => Promise<string>;
   changeNoteById: (
     id: Note["id"],
     data: Omit<Note, "id" | "createdAt" | "updatedAt">,
-  ) => Promise<boolean>;
+  ) => Promise<string>;
 }

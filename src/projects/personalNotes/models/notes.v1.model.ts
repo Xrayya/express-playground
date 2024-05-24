@@ -24,7 +24,13 @@ class NoteModelV1 implements INoteModel {
   };
 
   getNotesById: INoteModel["getNotesById"] = async (id) => {
-    return this.notes.filter((note) => note.id === id)[0];
+    const note = this.notes.filter((note) => note.id === id);
+
+    if (note.length < 1) {
+      throw new Error("The specified note not found");
+    }
+
+    return note[0]
   };
 
   getNotesByContent: INoteModel["getNotesByContent"] = async (
@@ -62,26 +68,28 @@ class NoteModelV1 implements INoteModel {
       ...note,
     };
 
-    if (this.notes.push(newNote) === length + 1) {
-      return id;
+    if (this.notes.push(newNote) !== length + 1) {
+      throw new Error("Internal server error: failed to add new note")
     }
+
+    return id;
   };
 
   deleteNoteById: INoteModel["deleteNoteById"] = async (id) => {
     const index = this.notes.findIndex((note) => note.id === id);
 
     if (index === -1) {
-      return false;
+      throw new Error("The specified note not found")
     }
 
-    return this.notes.splice(index, 1)[0].id === id;
+    return this.notes.splice(index, 1)[0].id;
   };
 
   changeNoteById: INoteModel["changeNoteById"] = async (id, data) => {
     const index = this.notes.findIndex((note) => note.id === id);
 
     if (index === -1) {
-      return false;
+      throw new Error("The specified note not found")
     }
 
     this.notes[index] = {
@@ -89,7 +97,7 @@ class NoteModelV1 implements INoteModel {
       ...data,
     };
 
-    return true;
+    return id;
   };
 }
 
